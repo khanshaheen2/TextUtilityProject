@@ -9,26 +9,33 @@ export default function TextForm(props) {
 const handleupclick=()=>{
     let newtext= text.toUpperCase();
     setText(newtext);
+    props.showalert("converted to uppercase","success");
 }
 const handleloclick=()=>{
     let newtext= text.toLowerCase();
     setText(newtext);
+    props.showalert("converted to lowercase","success");
 }
 const cleartext=()=>{
     let newtext= "";
     setText(newtext);
+    props.showalert("Text Cleared","success");
 }
 const colorchange=()=>{
     setColor('red');
+    props.showalert("Text color changed to red","success");
 }
 const copytext=()=>{
     let textdata= document.getElementById('myBox');
     textdata.select();
     navigator.clipboard.writeText(textdata.value);
+    props.showalert("Text copied","success");
 }
 const handleExtraspace=()=>{
     let newtxt= text.split(/[ ]+/);
     setText(newtxt.join(" "));
+    props.showalert("Removed Extra Spaces","success");
+
 }
 
   return (
@@ -50,10 +57,11 @@ const handleExtraspace=()=>{
 <div className="container">
     <div className="my-3">
         <h1>Text summary</h1>
-        <p> words {text.split(" ").length} , characters {text.length}</p>
+        <p> words {text.length>0 ? text.trim().split(" ").length:0} , characters {text.length}</p> 
+        {/* trim will remove the extra space from the end of the sentence */}
         <p>{0.008*text.split(" ").length} Minutes</p>
-        <h2>Previwew</h2>
-        <p>{text}</p>
+        <h2>Preview</h2>
+        <p>{text.length > 0? text:'Enter Something to Preview it Here'}</p>
     </div>
 </div>
 </>
